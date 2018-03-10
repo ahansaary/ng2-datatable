@@ -1,0 +1,68 @@
+<mat-table #table
+           [dataSource]="dataSource"
+           (matSortChange)="handleSort($event)"
+           matSort>
+  <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef
+                     mat-sort-header>ID</mat-header-cell>
+    <mat-cell *matCellDef="let user">
+      {{user.id}}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="login">
+    <mat-header-cell *matHeaderCellDef
+                     mat-sort-header>Name</mat-header-cell>
+    <mat-cell *matCellDef="let user">
+      {{user.login}}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Avatar Column -->
+  <ng-container matColumnDef="avatar_url">
+    <mat-header-cell *matHeaderCellDef
+                     mat-sort-header>Avatar</mat-header-cell>
+    <mat-cell *matCellDef="let user">
+      <div class="image-wrapper">
+        <img [src]="user.avatar_url"
+             alt="User Avatar">
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Account Column -->
+  <ng-container matColumnDef="html_url">
+    <mat-header-cell *matHeaderCellDef
+                     mat-sort-header>Account</mat-header-cell>
+    <mat-cell *matCellDef="let user">
+      <a [href]="user.html_url"
+         target="_blank">{{ user.html_url }}</a>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Type Column -->
+  <ng-container matColumnDef="type">
+    <mat-header-cell *matHeaderCellDef
+                     mat-sort-header>Type</mat-header-cell>
+    <mat-cell *matCellDef="let user">
+      {{user.type}}
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator #paginator
+               [pageIndex]="page-1"
+               [pageSize]="perPage"
+               [pageSizeOptions]="pageSizes"
+               [length]="total"
+               [showFirstLastButtons]="true"
+               (page)="handlePageChange($event)">
+</mat-paginator>
